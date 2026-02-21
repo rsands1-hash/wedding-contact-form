@@ -90,7 +90,7 @@
 
     /* — FORM FIELDS — */
     .form-group {
-        margin-bottom: 22px;
+        margin-bottom: 16px;
     }
 
     label {
@@ -153,7 +153,7 @@
         padding-right: 44px;
     }
 
-    /* — TWO-COLUMN FIELD GRID — */
+    /* — FIELD ROW GRIDS — */
     .field-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -240,46 +240,124 @@
         line-height: 1.4;
     }
 
+    /* — BOTTOM ROW: Textarea left, checkbox + button right — */
+    .bottom-row-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #1a1a2e;
+        font-weight: 600;
+        font-size: 0.88rem;
+        letter-spacing: -.005em;
+    }
+
+    .bottom-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .bottom-row .form-group {
+        margin-bottom: 0;
+    }
+
+    .bottom-row textarea {
+        height: 100%;
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .bottom-right {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        justify-content: space-between;
+        min-width: 220px;
+    }
+
+    .bottom-right .checkbox-group {
+        margin-top: 0;
+    }
+
+    .bottom-right .checkbox-item {
+        white-space: nowrap;
+    }
+
+    .bottom-right .button-group {
+        margin-top: 0;
+    }
+
+    .bottom-right .form-btn {
+        width: 100%;
+    }
+
     /* — BUTTONS — */
     .button-group {
         display: flex;
-        justify-content: space-between;
-        margin-top: 36px;
-        gap: 14px;
+        justify-content: flex-start;
+        margin-top: 28px;
     }
 
     .form-btn {
-        padding: 16px 32px;
-        border: none;
-        border-radius: 14px;
+        padding: 12px 28px;
+        border: 1.5px solid rgba(255,255,255,.45);
+        border-radius: 12px;
         cursor: pointer;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         font-weight: 600;
-        transition: all 0.25s ease;
+        transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
         font-family: inherit;
         line-height: 1.2;
         text-align: center;
-        flex: 1;
-        min-width: min(220px, 100%);
         letter-spacing: -.01em;
+        z-index: 1;
     }
 
     .form-btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #ff61d5 0%, #ff8de0 40%, #ff61d5 100%);
+        background-size: 100% 100%;
         color: #fff;
-        box-shadow: 0 2px 8px rgba(102,126,234,.2);
+        box-shadow: 0 2px 10px rgba(255,97,213,.25);
+    }
+
+    .form-btn-primary::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 60%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255,255,255,.3) 50%,
+            transparent 100%
+        );
+        transition: none;
+        z-index: 2;
+        pointer-events: none;
     }
 
     .form-btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(102,126,234,.3);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(255,97,213,.35);
+        border-color: rgba(255,255,255,.6);
+    }
+
+    .form-btn-primary:hover::after {
+        animation: btn-shine 0.6s ease forwards;
+    }
+
+    @keyframes btn-shine {
+        0%   { left: -100%; }
+        100% { left: 150%; }
     }
 
     .form-btn-primary:active {
         transform: translateY(0);
-        box-shadow: 0 2px 8px rgba(102,126,234,.2);
+        box-shadow: 0 2px 10px rgba(255,97,213,.25);
     }
 
     /* — THANK YOU — */
@@ -412,6 +490,24 @@
             gap: 0;
         }
 
+        .bottom-row {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        .bottom-row .form-group {
+            margin-bottom: 16px;
+        }
+
+        .bottom-right {
+            min-width: 0;
+            gap: 16px;
+        }
+
+        .bottom-right .button-group {
+            margin-top: 0;
+        }
+
         input,
         select,
         textarea {
@@ -434,19 +530,18 @@
             padding: 14px 16px;
             font-size: 0.88rem;
             border-radius: 14px;
+            height: auto;
+            white-space: normal;
         }
 
         .button-group {
-            flex-direction: column;
-            margin-top: 28px;
-            gap: 10px;
+            margin-top: 24px;
         }
 
         .form-btn {
             padding: 16px 24px;
             font-size: 0.95rem;
             width: 100%;
-            min-width: 0;
             border-radius: 14px;
         }
 
@@ -483,26 +578,33 @@
             </div>
 
 
-            <div class="form-group">
-                <label for="service">Photography Service <span class="required">*</span></label>
-                <select id="service" name="service" required="">
-                    <option value="">Please select...</option>
-                    <option value="wedding-photography">Wedding Photography</option>
-                    <option value="engagement-session">Engagement Session</option>
-                    <option value="photo-booth">Photo Booth</option>
-                    <option value="family-portrait">Family Portrait</option>
-                    <option value="proposal">Proposal</option>
-                    <option value="rehearsal-dinner">Rehearsal Dinner Coverage</option>
-                    <option value="maternity-session">Maternity Session</option>
-                    <option value="baby-shower">Baby Shower</option>
-                    <option value="bridal-shower">Bridal Shower</option>
-                    <option value="bar-bat-mitzvah">Bar/Bat Mitzvah</option>
-                    <option value="special-life-event">Special Life Event</option>
-                    <option value="birthday-party">Birthday Party</option>
-                    <option value="family-reunion">Family Reunion</option>
-                    <option value="corporate-event">Corporate Event</option>
-                    <option value="other">Other</option>
-                </select>
+            <!-- ROW 1: Service + Full Name -->
+            <div class="field-row">
+                <div class="form-group">
+                    <label for="service">Photography Service <span class="required">*</span></label>
+                    <select id="service" name="service" required="">
+                        <option value="">Please select...</option>
+                        <option value="wedding-photography">Wedding Photography</option>
+                        <option value="engagement-session">Engagement Session</option>
+                        <option value="photo-booth">Photo Booth</option>
+                        <option value="family-portrait">Family Portrait</option>
+                        <option value="proposal">Proposal</option>
+                        <option value="rehearsal-dinner">Rehearsal Dinner Coverage</option>
+                        <option value="maternity-session">Maternity Session</option>
+                        <option value="baby-shower">Baby Shower</option>
+                        <option value="bridal-shower">Bridal Shower</option>
+                        <option value="bar-bat-mitzvah">Bar/Bat Mitzvah</option>
+                        <option value="special-life-event">Special Life Event</option>
+                        <option value="birthday-party">Birthday Party</option>
+                        <option value="family-reunion">Family Reunion</option>
+                        <option value="corporate-event">Corporate Event</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Full Name <span class="required">*</span></label>
+                    <input type="text" id="fullName" name="fullName" required="">
+                </div>
             </div>
 
             <div class="form-group" id="otherServiceGroup" style="display:none;">
@@ -510,41 +612,38 @@
                 <input type="text" id="otherService" name="otherService">
             </div>
 
+            <!-- ROW 2: Email + Phone -->
             <div class="field-row">
-                <div class="form-group">
-                    <label for="fullName">Full Name <span class="required">*</span></label>
-                    <input type="text" id="fullName" name="fullName" required="">
-                </div>
                 <div class="form-group">
                     <label for="email">Email <span class="required">*</span></label>
                     <input type="email" id="email" name="email" required="">
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Phone <span class="required">*</span></label>
-                <input type="tel" id="phone" name="phone" required="">
-            </div>
-
-            <div class="form-group">
-                <div class="checkbox-group" style="grid-template-columns: 1fr; margin-top: 0;">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="requestPricing" name="requestPricing" value="yes">
-                        <div class="custom-checkbox"></div>
-                        <label for="requestPricing">Please send me pricing</label>
-                    </div>
+                <div class="form-group">
+                    <label for="phone">Phone <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required="">
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="message">How can I be of service?</label>
-                <textarea id="message" name="message" placeholder="Tell me about your event, date, or ideas."></textarea>
-            </div>
-
-            <div class="button-group">
-                <button type="submit" class="form-btn form-btn-primary" id="submitButton">
-                    Send My Inquiry
-                </button>
+            <!-- ROW 3: Message (left) + Checkbox & Button (right) -->
+            <label for="message" class="bottom-row-label">How can I be of service?</label>
+            <div class="bottom-row">
+                <div class="form-group">
+                    <textarea id="message" name="message" placeholder="Tell me about your event, date, or ideas."></textarea>
+                </div>
+                <div class="bottom-right">
+                    <div class="checkbox-group" style="grid-template-columns: 1fr; margin-top: 0;">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="requestPricing" name="requestPricing" value="yes">
+                            <div class="custom-checkbox"></div>
+                            <label for="requestPricing">Please send me pricing</label>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="form-btn form-btn-primary" id="submitButton">
+                            Send My Inquiry
+                        </button>
+                    </div>
+                </div>
             </div>
         </form>
 
