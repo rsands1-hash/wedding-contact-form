@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Photography Inquiry</title>
+<style>
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "San Francisco", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background: #fff;
+        color: #2d3748;
+    }
+
+    .form-container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: #fff;
+        overflow: visible;
+        position: relative;
+    }
+
+    .form-panel {
+        background: #fff;
+        padding: 40px 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    /* STEP HEADER INLINE */
+    .step-status-bar {
+        margin-bottom: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px 16px;
+    }
+
+    .step-pill {
+        display: inline-block;
+        background: linear-gradient(90deg,#ff8c42,#ff6b35);
+        color: #fff;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 999px;
+        line-height: 1.2;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        white-space: nowrap;
+    }
+
+    .step-progress-text {
+        font-size: 1.2rem;
+        line-height: 1.4;
+        color: #2d3748;
+        font-weight: 500;
+        margin: 0;
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .form-body {
+        width: 100%;
+        font-family: inherit;
+        color: #2d3748;
+    }
+
+    .step {
+        display: none;
+        animation: fadeInUp 0.6s ease;
+    }
+
+    .step.active {
+        display: block;
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .step h2 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        line-height: 1.3;
+        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-weight: 600;
+        text-align: left;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 500;
+        font-size: 1rem;
+        font-family: inherit;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #e1e5e9;
+        border-radius: 0;
+        font-size: 16px;
+        font-family: inherit;
+        transition: all 0.3s ease;
+        background: #f8fafc;
+        height: 54px;
+        line-height: 1.4;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        box-sizing: border-box;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 120px;
+        height: auto;
+        line-height: 1.5;
+    }
+
+    .checkbox-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .checkbox-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 15px;
+        border: 2px solid #e1e5e9;
+        border-radius: 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: #f8fafc;
+        position: relative;
+        font-size: 16px;
+        line-height: 1.4;
+        color: #2d3748;
+        font-family: inherit;
+    }
+
+    .checkbox-item:hover {
+        border-color: #667eea;
+        background: #fff;
+    }
+
+    .checkbox-item input[type="checkbox"],
+    .checkbox-item input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .custom-checkbox {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ccc;
+        border-radius: 0;
+        margin-right: 12px;
+        flex-shrink: 0;
+        background: #fff;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        color: #667eea;
+        line-height: 1;
+        font-family: inherit;
+    }
+
+    .checkbox-item.checked {
+        border-color: #667eea;
+        background: rgba(102,126,234,0.1);
+    }
+
+    .checkbox-item.checked .custom-checkbox {
+        background: #fff;
+        border-color: #667eea;
+        color: #667eea;
+    }
+
+    .checkbox-item:hover .custom-checkbox {
+        border-color: #667eea;
+    }
+
+    .checkbox-item label {
+        margin: 0;
+        cursor: pointer;
+        font-size: inherit;
+        flex: 1;
+        color: inherit;
+        font-family: inherit;
+        line-height: 1.4;
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .form-btn {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 0;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+        font-family: inherit;
+        line-height: 1.2;
+        text-align: center;
+        flex: 1;
+        min-width: min(240px,100%);
+    }
+
+    .form-btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        box-shadow: none;
+        border: none;
+    }
+
+    .form-btn-primary:hover {
+        filter: brightness(1.05);
+        transform: translateY(-1px);
+    }
+
+    .form-btn-secondary {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+        box-shadow: none;
+    }
+
+    .form-btn-secondary:hover {
+        background: #fff;
+        transform: translateY(-1px);
+    }
+
+    .heart {
+        color: #ff6b6b;
+        font-size: 1.1em;
+        margin-left: 6px;
+        line-height: 1;
+        animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+        0%,100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    .thank-you {
+        text-align: center;
+        padding: 40px 0;
+        position: relative;
+        overflow: hidden;
+        font-family: inherit;
+    }
+
+    .thank-you h2 {
+        color: #667eea;
+        margin-bottom: 20px;
+        font-size: 2rem;
+        line-height: 1.2;
+        font-weight: 600;
+        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .thank-you p {
+        color: #666;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        max-width: 400px;
+        margin: 0 auto 30px auto;
+        font-family: inherit;
+    }
+
+    .celebration-animation {
+        position: relative;
+        margin: 20px 0;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dancing-camera {
+        font-size: 3em;
+        animation: dance 2s ease-in-out infinite;
+        margin: 0 20px;
+    }
+
+    @keyframes dance {
+        0%, 100% { transform: translateY(0) rotate(-5deg); }
+        25% { transform: translateY(-10px) rotate(5deg); }
+        50% { transform: translateY(-5px) rotate(-3deg); }
+        75% { transform: translateY(-15px) rotate(3deg); }
+    }
+
+    .floating-hearts {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .floating-heart {
+        position: absolute;
+        color: #ff6b6b;
+        font-size: 1.5em;
+        animation: float-up 3s ease-out infinite;
+        opacity: 0;
+    }
+
+    .floating-heart:nth-child(1) { left: 20%; animation-delay: 0s; }
+    .floating-heart:nth-child(2) { left: 40%; animation-delay: 0.5s; }
+    .floating-heart:nth-child(3) { left: 60%; animation-delay: 1s; }
+    .floating-heart:nth-child(4) { left: 80%; animation-delay: 1.5s; }
+    .floating-heart:nth-child(5) { left: 30%; animation-delay: 2s; }
+    .floating-heart:nth-child(6) { left: 70%; animation-delay: 2.5s; }
+
+    @keyframes float-up {
+        0%   { transform: translateY(50px) scale(0); opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: 1; }
+        100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+    }
+
+    .confetti {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .confetti-piece {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #667eea;
+        animation: confetti-fall 3s linear infinite;
+        opacity: 0;
+    }
+
+    .confetti-piece:nth-child(odd)  { background: #ff6b6b; }
+    .confetti-piece:nth-child(3n)   { background: #4ecdc4; }
+    .confetti-piece:nth-child(4n)   { background: #ffd93d; }
+
+    @keyframes confetti-fall {
+        0%   { transform: translateY(-100px) rotate(0deg);   opacity: 1; }
+        100% { transform: translateY(200px) rotate(720deg); opacity: 0; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+        .form-panel {
+            padding: 24px 16px;
+        }
+
+        .step-status-bar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .step-progress-text {
+            font-size: 0.9rem;
+        }
+
+        .step h2 {
+            font-size: 1.4rem;
+            text-align: left;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 12px 15px;
+            font-size: 16px;
+            height: 48px;
+        }
+
+        textarea {
+            min-height: 100px;
+            padding: 12px 15px;
+        }
+
+        .checkbox-group {
+            grid-template-columns: 1fr !important;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .button-group {
+            flex-direction: column;
+            margin-top: 25px;
+            gap: 10px;
+        }
+
+        .form-btn {
+            padding: 15px 20px;
+            font-size: 16px;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .thank-you {
+            padding: 40px 0;
+        }
+
+        .thank-you h2 {
+            font-size: 1.8rem;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .step-pill {
+            font-size: 0.7rem;
+            padding: 5px 10px;
+        }
+        .step-progress-text {
+            font-size: 1.0rem;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="form-container" id="contact-form-root">
+    <div class="form-panel">
+        <!-- STEP HEADER INLINE -->
+        <div class="step-status-bar">
+            <span class="step-pill" id="stepPill">STEP 1 OF 2</span>
+            <div class="step-progress-text" id="stepProgressText">
+                Tell me a bit about your wedding day 💍
+            </div>
+        </div>
+
+        <form class="form-body" id="weddingForm" action="https://formspree.io/f/movlykze" method="POST">
+            <input type="hidden" name="_next" value="thank-you">
+            <input type="hidden" name="_subject" value="New Wedding Photography Inquiry">
+            <input type="hidden" name="_cc" value="">
+
+            <!-- STEP 1 -->
+            <div class="step active" data-step="1">
+                <h2>Your Wedding Details</h2>
+
+                <div class="form-group">
+                    <label for="bride-name">Bride's Name *</label>
+                    <input type="text" id="bride-name" name="brideName" required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="groom-name">Groom's Name *</label>
+                    <input type="text" id="groom-name" name="groomName" required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="wedding-date">Wedding Date *</label>
+                    <input type="date" id="wedding-date" name="weddingDate" required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="venue">Venue Name</label>
+                    <input type="text" id="venue" name="venue" placeholder="  Where will your ceremony take place?  ">
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="form-btn form-btn-primary" onclick="nextStep()">Next Step</button>
+                </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="step" data-step="2">
+                <h2>Schedule Your FREE Consultation</h2>
+
+                <div class="form-group">
+                    <div class="checkbox-group" style="grid-template-columns: 1fr; margin-top: 0;">
+                        <div class="checkbox-item checked">
+                            <input type="checkbox" id="free-consultation" name="freeConsultation" value="yes" checked="">
+                            <div class="custom-checkbox">✓</div>
+                            <label for="free-consultation">Yes! I'd like to book a FREE consultation and earn a $100 credit</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="preferred-time">What time of day works best for you?</label>
+                    <select id="preferred-time" name="preferredTime">
+                        <option value="">Select your preferred time</option>
+                        <option value="morning">Morning (9am - 12pm)</option>
+                        <option value="afternoon">Afternoon (12pm - 5pm)</option>
+                        <option value="evening">Evening (5pm - 8pm)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="preferred-date">When would you like to chat?</label>
+                    <input type="date" id="preferred-date" name="preferredDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="chat-type">How would you prefer to connect?</label>
+                    <select id="chat-type" name="chatType" onchange="togglePhoneField()">
+                        <option value="">Select your preference</option>
+                        <option value="phone">Phone Call</option>
+                        <option value="video">Video Chat</option>
+                        <option value="email">Email</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="phone-number-group" style="display: none;">
+                    <label for="consultation-phone">Confirm your phone number for the consultation</label>
+                    <input type="tel" id="consultation-phone" name="consultationPhone" placeholder="Best number to reach you at">
+                </div>
+
+                <div class="form-group">
+                    <label>May I text you to confirm your consultation?</label>
+                    <div class="checkbox-group" style="grid-template-columns: repeat(2, 1fr); margin-top: 15px;">
+                        <div class="checkbox-item">
+                            <input type="radio" id="text-yes" name="textPermission" value="yes">
+                            <div class="custom-checkbox"></div>
+                            <label for="text-yes">Yes, you can text me</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="radio" id="text-no" name="textPermission" value="no">
+                            <div class="custom-checkbox"></div>
+                            <label for="text-no">No, contact me via email</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="questions-message">Any questions or special requests?</label>
+                    <textarea id="questions-message" name="questionsMessage" placeholder="Tell me anything else you'd like me to know about your special day..."></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="form-btn form-btn-secondary" onclick="prevStep()">Previous</button>
+                    <button type="submit" class="form-btn form-btn-primary">
+                        Book My FREE Consultation
+                    </button>
+                </div>
+            </div>
+
+            <!-- THANK YOU STEP -->
+            <div class="step" id="thankYouStep">
+                <div class="thank-you">
+                    <div class="floating-hearts">
+                        <div class="floating-heart">💕</div>
+                        <div class="floating-heart">💖</div>
+                        <div class="floating-heart">💕</div>
+                        <div class="floating-heart">💖</div>
+                        <div class="floating-heart">💕</div>
+                        <div class="floating-heart">💖</div>
+                    </div>
+                    <div class="confetti">
+                        <div class="confetti-piece" style="left:10%;animation-delay:0s;"></div>
+                        <div class="confetti-piece" style="left:20%;animation-delay:0.2s;"></div>
+                        <div class="confetti-piece" style="left:30%;animation-delay:0.4s;"></div>
+                        <div class="confetti-piece" style="left:40%;animation-delay:0.6s;"></div>
+                        <div class="confetti-piece" style="left:50%;animation-delay:0.8s;"></div>
+                        <div class="confetti-piece" style="left:60%;animation-delay:1s;"></div>
+                        <div class="confetti-piece" style="left:70%;animation-delay:1.2s;"></div>
+                        <div class="confetti-piece" style="left:80%;animation-delay:1.4s;"></div>
+                        <div class="confetti-piece" style="left:90%;animation-delay:1.6s;"></div>
+                        <div class="confetti-piece" style="left:15%;animation-delay:1.8s;"></div>
+                        <div class="confetti-piece" style="left:35%;animation-delay:2s;"></div>
+                        <div class="confetti-piece" style="left:55%;animation-delay:2.2s;"></div>
+                        <div class="confetti-piece" style="left:75%;animation-delay:2.4s;"></div>
+                        <div class="confetti-piece" style="left:85%;animation-delay:2.6s;"></div>
+                    </div>
+
+                    <h2>Thank You!</h2>
+
+                    <div class="celebration-animation">
+                        <div class="dancing-camera">📸</div>
+                    </div>
+
+                    <p>Hi 👋🏻 I've received your consultation request and I'm really excited about the possibility of working together! I'll be in touch as soon as I review your email. Looking forward to chatting with you!</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    let currentStep = 1;
+    const totalSteps = 2;
+
+    function updateStepHeader() {
+        const pill = document.getElementById('stepPill');
+        const textEl = document.getElementById('stepProgressText');
+
+        if (!pill || !textEl) return;
+
+        if (currentStep === 1) {
+            pill.textContent = 'STEP 1 OF 2';
+            textEl.textContent = "Tell me a bit about your wedding 💍";
+        } else if (currentStep === 2) {
+            pill.textContent = 'STEP 2 OF 2';
+            textEl.textContent = "Just a few more details until we connect 😁";
+        } else {
+            pill.textContent = 'DONE';
+            textEl.textContent = "All set — I'll be in touch ASAP 🙌🏻";
+        }
+    }
+
+    function showStep(step) {
+        document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+        var targetStep = document.querySelector('[data-step="' + step + '"]');
+        if (targetStep) {
+            targetStep.classList.add('active');
+        }
+
+        setTimeout(function() {
+            var pill = document.getElementById('stepPill');
+            if (pill) {
+                var y = pill.getBoundingClientRect().top + window.pageYOffset - 20;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+        }, 200);
+
+        updateStepHeader();
+    }
+
+    function validateCurrentStep() {
+        var activeStep = document.querySelector('[data-step="' + currentStep + '"]');
+        if (!activeStep) return true;
+
+        var requiredFields = activeStep.querySelectorAll('input[required], select[required]');
+        for (var i = 0; i < requiredFields.length; i++) {
+            var field = requiredFields[i];
+            if (!field.value.trim()) {
+                field.focus();
+                field.style.borderColor = '#e74c3c';
+                setTimeout(function() {
+                    field.style.borderColor = '#e1e5e9';
+                }, 3000);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function nextStep() {
+        if (!validateCurrentStep()) return;
+        if (currentStep < totalSteps) {
+            currentStep++;
+            showStep(currentStep);
+        }
+    }
+
+    function prevStep() {
+        if (currentStep > 1) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    }
+
+    function togglePhoneField() {
+        var chatType = document.getElementById('chat-type');
+        var phoneGroup = document.getElementById('phone-number-group');
+        var consultationPhone = document.getElementById('consultation-phone');
+        var originalPhone = document.getElementById('phone');
+
+        if (chatType && phoneGroup && consultationPhone && originalPhone) {
+            if (chatType.value === 'phone') {
+                phoneGroup.style.display = 'block';
+                if (originalPhone.value && !consultationPhone.value) {
+                    consultationPhone.value = originalPhone.value;
+                }
+            } else {
+                phoneGroup.style.display = 'none';
+            }
+        }
+    }
+
+    window.nextStep = nextStep;
+    window.prevStep = prevStep;
+    window.togglePhoneField = togglePhoneField;
+
+    function handleCheckboxClick(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var item = event.target.closest('.checkbox-item');
+        if (!item) return;
+
+        var input = item.querySelector('input[type="checkbox"], input[type="radio"]');
+        var customCheckbox = item.querySelector('.custom-checkbox');
+
+        if (input.type === 'radio') {
+            var radioName = input.name;
+            var allRadios = document.querySelectorAll('input[name="' + radioName + '"]');
+
+            allRadios.forEach(function(radio) {
+                var radioItem = radio.closest('.checkbox-item');
+                var radioCustom = radioItem.querySelector('.custom-checkbox');
+                radioItem.classList.remove('checked');
+                radioCustom.textContent = '';
+                radio.checked = false;
+            });
+
+            input.checked = true;
+            item.classList.add('checked');
+            customCheckbox.textContent = '✓';
+        } else {
+            input.checked = !input.checked;
+
+            if (input.checked) {
+                item.classList.add('checked');
+                customCheckbox.textContent = '✓';
+            } else {
+                item.classList.remove('checked');
+                customCheckbox.textContent = '';
+            }
+        }
+    }
+
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!validateCurrentStep()) return;
+
+        var form = document.getElementById('weddingForm');
+        if (!form) return false;
+
+        var formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(function(response) {
+            if (response.ok) {
+                document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+                var thankYouStep = document.getElementById('thankYouStep');
+                if (thankYouStep) {
+                    thankYouStep.classList.add('active');
+                }
+
+                currentStep = 3;
+                updateStepHeader();
+
+                setTimeout(function() {
+                    var pill = document.getElementById('stepPill');
+                    if (pill) {
+                        var y = pill.getBoundingClientRect().top + window.pageYOffset - 20;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                }, 200);
+            } else {
+                alert('Oops! There was a problem submitting your form. Please try again.');
+            }
+        }).catch(function(error) {
+            alert('Oops! There was a problem submitting your form. Please try again.');
+        });
+
+        return false;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var checkboxItems = document.querySelectorAll('.checkbox-item');
+        checkboxItems.forEach(function(item) {
+            item.addEventListener('click', handleCheckboxClick);
+            item.addEventListener('touchend', handleCheckboxClick);
+        });
+
+        // mark consultation box visually selected
+        var consultationCheckbox = document.getElementById('free-consultation');
+        if (consultationCheckbox) {
+            var consultationItem = consultationCheckbox.closest('.checkbox-item');
+            if (consultationItem) {
+                consultationItem.classList.add('checked');
+                var cb = consultationItem.querySelector('.custom-checkbox');
+                if (cb) cb.textContent = '✓';
+            }
+        }
+
+        var form = document.getElementById('weddingForm');
+        if (form) {
+            form.addEventListener('submit', handleFormSubmit);
+
+            var submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.addEventListener('click', function(e) {
+                    if (currentStep === totalSteps) {
+                        e.preventDefault();
+                        handleFormSubmit(e);
+                    }
+                });
+
+                submitBtn.addEventListener('touchend', function(e) {
+                    if (currentStep === totalSteps) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setTimeout(function() { handleFormSubmit(e); }, 100);
+                    }
+                });
+            }
+        }
+
+        // init header text for step 1
+        updateStepHeader();
+    });
+
+    /* =============================================
+       IFRAME HEIGHT COMMUNICATION (for Showit embed)
+       ============================================= */
+    function sendHeight() {
+        var root = document.getElementById('contact-form-root');
+        root.style.height = 'auto';
+        document.body.style.height = 'auto';
+        document.documentElement.style.height = 'auto';
+        void root.offsetHeight;
+        var h = Math.max(root.scrollHeight, root.offsetHeight, document.body.scrollHeight);
+        h = Math.ceil(h);
+        window.parent.postMessage({calcHeight: h}, '*');
+    }
+    window.addEventListener('load', function() {
+        sendHeight();
+        setInterval(sendHeight, 300);
+        var observer = new MutationObserver(function() { setTimeout(sendHeight, 0); });
+        observer.observe(document.getElementById('contact-form-root'), {childList: true, subtree: true});
+    });
+</script>
+
+</body>
+</html>
