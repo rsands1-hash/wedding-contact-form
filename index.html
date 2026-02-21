@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Ryan Sands Photography</title>
+<style>
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background: transparent;
+        color: #1a1a2e;
+    }
+
+    /* === HONEYPOT FIELD === */
+    .honeypot-field {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+        tabindex: -1;
+    }
+
+    /* — OUTER WRAPPER — */
+    .form-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 40px 32px;
+    }
+
+    /* — FORM CARD — */
+    .right-panel {
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 44px 40px;
+        box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.04);
+        border: 1px solid rgba(0,0,0,.04);
+    }
+
+    /* — FORM BODY — */
+    .form-body {
+        width: 100%;
+        color: #1a1a2e;
+    }
+
+    .form-body h2 {
+        color: #1a1a2e;
+        margin-bottom: 8px;
+        font-size: 1.5rem;
+        line-height: 1.3;
+        font-weight: 700;
+        letter-spacing: -.01em;
+    }
+
+    .form-subtitle {
+        font-size: 0.9rem;
+        color: #888;
+        margin-bottom: 28px;
+        line-height: 1.5;
+    }
+
+    .form-section-divider {
+        border: none;
+        border-top: 1px solid #f0eeeb;
+        margin: 32px 0;
+    }
+
+    /* — THANK YOU (hidden by default, shown after submit) — */
+    .thank-you-wrapper {
+        display: none;
+    }
+
+    .thank-you-wrapper.active {
+        display: block;
+    }
+
+    /* — FORM FIELDS — */
+    .form-group {
+        margin-bottom: 22px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #1a1a2e;
+        font-weight: 600;
+        font-size: 0.88rem;
+        letter-spacing: -.005em;
+    }
+
+    .required { color: #e53e3e; }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 14px 18px;
+        border: 1.5px solid #e8e6e1;
+        border-radius: 14px;
+        font-size: 15px;
+        font-family: inherit;
+        transition: all 0.25s ease;
+        background: #fafaf8;
+        height: 52px;
+        line-height: 1.4;
+        color: #1a1a2e;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        box-sizing: border-box;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #b0ada6;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba(102,126,234,.08);
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 120px;
+        height: auto;
+        line-height: 1.6;
+    }
+
+    /* — SELECT ARROW — */
+    select {
+        background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 18px center;
+        padding-right: 44px;
+    }
+
+    /* — TWO-COLUMN FIELD GRID — */
+    .field-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    /* — CHECKBOX / RADIO ITEMS — */
+    .checkbox-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+        padding: 16px 18px;
+        border: 1.5px solid #e8e6e1;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        background: #fafaf8;
+        position: relative;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        color: #1a1a2e;
+    }
+
+    .checkbox-item:hover {
+        border-color: #c5c2bc;
+        background: #fff;
+    }
+
+    .checkbox-item input[type="checkbox"],
+    .checkbox-item input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .custom-checkbox {
+        width: 22px;
+        height: 22px;
+        border: 2px solid #d5d2cc;
+        border-radius: 8px;
+        margin-right: 14px;
+        flex-shrink: 0;
+        background: #fff;
+        transition: all 0.25s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: bold;
+        color: transparent;
+        line-height: 1;
+    }
+
+    .checkbox-item.checked {
+        border-color: #667eea;
+        background: #f7f6ff;
+        box-shadow: 0 0 0 3px rgba(102,126,234,.06);
+    }
+
+    .checkbox-item.checked .custom-checkbox {
+        background: #667eea;
+        border-color: #667eea;
+        color: #fff;
+    }
+
+    .checkbox-item:hover .custom-checkbox {
+        border-color: #667eea;
+    }
+
+    .checkbox-item label {
+        margin: 0;
+        cursor: pointer;
+        font-size: inherit;
+        flex: 1;
+        color: inherit;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+    /* — BUTTONS — */
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 36px;
+        gap: 14px;
+    }
+
+    .form-btn {
+        padding: 16px 32px;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 600;
+        transition: all 0.25s ease;
+        position: relative;
+        overflow: hidden;
+        font-family: inherit;
+        line-height: 1.2;
+        text-align: center;
+        flex: 1;
+        min-width: min(220px, 100%);
+        letter-spacing: -.01em;
+    }
+
+    .form-btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(102,126,234,.2);
+    }
+
+    .form-btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(102,126,234,.3);
+    }
+
+    .form-btn-primary:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(102,126,234,.2);
+    }
+
+    /* — THANK YOU — */
+    .thank-you {
+        text-align: center;
+        padding: 48px 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .thank-you h2 {
+        color: #667eea;
+        margin-bottom: 20px;
+        font-size: 2rem;
+        line-height: 1.2;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .thank-you p {
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.7;
+        max-width: 420px;
+        margin: 0 auto 30px auto;
+    }
+
+    .celebration-animation {
+        position: relative;
+        margin: 24px 0;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dancing-camera {
+        font-size: 3em;
+        animation: dance 2s ease-in-out infinite;
+        margin: 0 20px;
+    }
+
+    @keyframes dance {
+        0%, 100% { transform: translateY(0) rotate(-5deg); }
+        25% { transform: translateY(-10px) rotate(5deg); }
+        50% { transform: translateY(-5px) rotate(-3deg); }
+        75% { transform: translateY(-15px) rotate(3deg); }
+    }
+
+    .floating-hearts {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .floating-heart {
+        position: absolute;
+        color: #ff6b6b;
+        font-size: 1.5em;
+        animation: float-up 3s ease-out infinite;
+        opacity: 0;
+    }
+
+    .floating-heart:nth-child(1) { left: 20%; animation-delay: 0s; }
+    .floating-heart:nth-child(2) { left: 40%; animation-delay: 0.5s; }
+    .floating-heart:nth-child(3) { left: 60%; animation-delay: 1s; }
+    .floating-heart:nth-child(4) { left: 80%; animation-delay: 1.5s; }
+    .floating-heart:nth-child(5) { left: 30%; animation-delay: 2s; }
+    .floating-heart:nth-child(6) { left: 70%; animation-delay: 2.5s; }
+
+    @keyframes float-up {
+        0%   { transform: translateY(50px) scale(0); opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: 1; }
+        100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+    }
+
+    .confetti {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .confetti-piece {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #667eea;
+        border-radius: 2px;
+        animation: confetti-fall 3s linear infinite;
+        opacity: 0;
+    }
+
+    .confetti-piece:nth-child(odd)  { background: #ff6b6b; border-radius: 50%; }
+    .confetti-piece:nth-child(3n)   { background: #4ecdc4; }
+    .confetti-piece:nth-child(4n)   { background: #ffd93d; border-radius: 50%; }
+
+    @keyframes confetti-fall {
+        0%   { transform: translateY(-100px) rotate(0deg);   opacity: 1; }
+        100% { transform: translateY(200px) rotate(720deg); opacity: 0; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+        .form-container {
+            padding: 24px 16px;
+        }
+
+        .right-panel {
+            padding: 32px 24px 48px;
+            border-radius: 20px;
+        }
+
+        .form-body h2 {
+            font-size: 1.3rem;
+        }
+
+        .form-subtitle {
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .field-row {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 12px 16px;
+            font-size: 16px;
+            height: 48px;
+            border-radius: 12px;
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            grid-template-columns: 1fr !important;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            padding: 14px 16px;
+            font-size: 0.88rem;
+            border-radius: 14px;
+        }
+
+        .button-group {
+            flex-direction: column;
+            margin-top: 28px;
+            gap: 10px;
+        }
+
+        .form-btn {
+            padding: 16px 24px;
+            font-size: 0.95rem;
+            width: 100%;
+            min-width: 0;
+            border-radius: 14px;
+        }
+
+        .thank-you {
+            padding: 36px 10px;
+        }
+
+        .thank-you h2 {
+            font-size: 1.6rem;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .right-panel {
+            padding: 28px 18px 40px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="form-container" id="contact-form-root">
+    <section class="right-panel" id="formPanel">
+
+        <form class="form-body" id="contactForm" action="https://formspree.io/f/mrbldqya" method="POST">
+            <input type="hidden" name="_subject" value="New Photography Inquiry">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" id="formLoadedAt" value="">
+
+            <!-- HONEYPOT FIELD - Hidden from humans, visible to bots -->
+            <div class="honeypot-field" aria-hidden="true">
+                <label for="website">Website</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <h2>Let's Get the Conversation Started</h2>
+            <div class="form-subtitle">Need something photographed? I'm your man.</div>
+
+            <div class="form-group">
+                <label for="service">Photography Service <span class="required">*</span></label>
+                <select id="service" name="service" required="">
+                    <option value="">Please select...</option>
+                    <option value="wedding-photography">Wedding Photography</option>
+                    <option value="engagement-session">Engagement Session</option>
+                    <option value="photo-booth">Photo Booth</option>
+                    <option value="family-portrait">Family Portrait</option>
+                    <option value="proposal">Proposal</option>
+                    <option value="rehearsal-dinner">Rehearsal Dinner Coverage</option>
+                    <option value="maternity-session">Maternity Session</option>
+                    <option value="baby-shower">Baby Shower</option>
+                    <option value="bridal-shower">Bridal Shower</option>
+                    <option value="bar-bat-mitzvah">Bar/Bat Mitzvah</option>
+                    <option value="special-life-event">Special Life Event</option>
+                    <option value="birthday-party">Birthday Party</option>
+                    <option value="family-reunion">Family Reunion</option>
+                    <option value="corporate-event">Corporate Event</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="otherServiceGroup" style="display:none;">
+                <label for="otherService">Please specify</label>
+                <input type="text" id="otherService" name="otherService">
+            </div>
+
+            <div class="field-row">
+                <div class="form-group">
+                    <label for="fullName">Full Name <span class="required">*</span></label>
+                    <input type="text" id="fullName" name="fullName" required="">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required="">
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-group" style="grid-template-columns: 1fr; margin-top: 0;">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="requestPricing" name="requestPricing" value="yes">
+                        <div class="custom-checkbox"></div>
+                        <label for="requestPricing">Please send me pricing</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="message">How can I be of service?</label>
+                <textarea id="message" name="message" placeholder="Tell me about your event, date, or ideas."></textarea>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="form-btn form-btn-primary" id="submitButton">
+                    Send My Inquiry
+                </button>
+            </div>
+        </form>
+
+        <!-- THANK YOU (shown after submit) -->
+        <div class="thank-you-wrapper" id="thankYouWrapper">
+            <div class="thank-you">
+                <div class="floating-hearts">
+                    <div class="floating-heart">💕</div>
+                    <div class="floating-heart">💖</div>
+                    <div class="floating-heart">💕</div>
+                    <div class="floating-heart">💖</div>
+                    <div class="floating-heart">💕</div>
+                    <div class="floating-heart">💖</div>
+                </div>
+                <div class="confetti">
+                    <div class="confetti-piece" style="left:10%;animation-delay:0s;"></div>
+                    <div class="confetti-piece" style="left:20%;animation-delay:0.2s;"></div>
+                    <div class="confetti-piece" style="left:30%;animation-delay:0.4s;"></div>
+                    <div class="confetti-piece" style="left:40%;animation-delay:0.6s;"></div>
+                    <div class="confetti-piece" style="left:50%;animation-delay:0.8s;"></div>
+                    <div class="confetti-piece" style="left:60%;animation-delay:1s;"></div>
+                    <div class="confetti-piece" style="left:70%;animation-delay:1.2s;"></div>
+                    <div class="confetti-piece" style="left:80%;animation-delay:1.4s;"></div>
+                    <div class="confetti-piece" style="left:90%;animation-delay:1.6s;"></div>
+                    <div class="confetti-piece" style="left:15%;animation-delay:1.8s;"></div>
+                    <div class="confetti-piece" style="left:35%;animation-delay:2s;"></div>
+                    <div class="confetti-piece" style="left:55%;animation-delay:2.2s;"></div>
+                    <div class="confetti-piece" style="left:75%;animation-delay:2.4s;"></div>
+                    <div class="confetti-piece" style="left:85%;animation-delay:2.6s;"></div>
+                </div>
+
+                <h2>Thank You!</h2>
+
+                <div class="celebration-animation">
+                    <div class="dancing-camera">📸</div>
+                </div>
+
+                <p>Hi 👋🏻 I've received your message and I'm really excited to hear from you! I'll reply as soon as I see your email. Looking forward to connecting!</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    // Record when the form loaded - used for time-based spam check
+    document.getElementById('formLoadedAt').value = Date.now();
+
+    document.getElementById('service').addEventListener('change', function(e) {
+        var otherGroup = document.getElementById('otherServiceGroup');
+        if (e.target.value === 'other') {
+            otherGroup.style.display = 'block';
+        } else {
+            otherGroup.style.display = 'none';
+        }
+    });
+
+    // Auto-format phone number as user types: 908-335-4847
+    document.getElementById('phone').addEventListener('input', function() {
+        var digits = this.value.replace(/\D/g, '').substring(0, 10);
+        if (digits.length > 6) {
+            this.value = digits.substring(0, 3) + '-' + digits.substring(3, 6) + '-' + digits.substring(6);
+        } else if (digits.length > 3) {
+            this.value = digits.substring(0, 3) + '-' + digits.substring(3);
+        } else {
+            this.value = digits;
+        }
+    });
+
+    // Custom checkbox click handler
+    function handleCheckboxClick(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var item = event.target.closest('.checkbox-item');
+        if (!item) return;
+
+        var input = item.querySelector('input[type="checkbox"], input[type="radio"]');
+        var customCheckbox = item.querySelector('.custom-checkbox');
+
+        if (input.type === 'radio') {
+            var radioName = input.name;
+            var allRadios = document.querySelectorAll('input[name="' + radioName + '"]');
+
+            allRadios.forEach(function(radio) {
+                var radioItem = radio.closest('.checkbox-item');
+                var radioCustom = radioItem.querySelector('.custom-checkbox');
+                radioItem.classList.remove('checked');
+                radioCustom.textContent = '';
+                radio.checked = false;
+            });
+
+            input.checked = true;
+            item.classList.add('checked');
+            customCheckbox.textContent = '✓';
+        } else {
+            input.checked = !input.checked;
+
+            if (input.checked) {
+                item.classList.add('checked');
+                customCheckbox.textContent = '✓';
+            } else {
+                item.classList.remove('checked');
+                customCheckbox.textContent = '';
+            }
+        }
+    }
+
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var form = document.getElementById('contactForm');
+        if (!form) return false;
+
+        // HONEYPOT SPAM CHECK - Check FIRST before sending anything
+        var honeypot = document.getElementById('website').value;
+        if (honeypot && honeypot.trim() !== '') {
+            // Silently reject spam - bot filled the honeypot field
+            console.log('Spam blocked - honeypot triggered');
+            // Show fake success to confuse bots
+            form.style.display = 'none';
+            var thankYou = document.getElementById('thankYouWrapper');
+            if (thankYou) thankYou.classList.add('active');
+            return false;
+        }
+
+        // TIME-BASED SPAM CHECK - No human can fill this form in under 3 seconds
+        var loadedAt = parseInt(document.getElementById('formLoadedAt').value, 10);
+        var elapsed = Date.now() - loadedAt;
+        if (elapsed < 3000) {
+            // Silently reject spam - submitted too fast
+            console.log('Spam blocked - submitted in ' + elapsed + 'ms');
+            form.style.display = 'none';
+            var thankYou = document.getElementById('thankYouWrapper');
+            if (thankYou) thankYou.classList.add('active');
+            return false;
+        }
+
+        // Validate required fields
+        var requiredFields = form.querySelectorAll('input[required], select[required]');
+        for (var i = 0; i < requiredFields.length; i++) {
+            if (!requiredFields[i].value.trim()) {
+                requiredFields[i].focus();
+                requiredFields[i].style.borderColor = '#e74c3c';
+                setTimeout(function() {
+                    requiredFields[i].style.borderColor = '#e8e6e1';
+                }, 3000);
+                return false;
+            }
+        }
+
+        var btn = document.getElementById('submitButton');
+        if (btn) {
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+        }
+
+        var formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(function(response) {
+            if (response.ok) {
+                form.style.display = 'none';
+                var thankYou = document.getElementById('thankYouWrapper');
+                if (thankYou) {
+                    thankYou.classList.add('active');
+                }
+
+                setTimeout(function() {
+                    var panel = document.getElementById('formPanel');
+                    if (panel) {
+                        var y = panel.getBoundingClientRect().top + window.pageYOffset - 150;
+                        window.scrollTo({
+                            top: y,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 200);
+
+                // Reset load time for spam check
+                document.getElementById('formLoadedAt').value = Date.now();
+            } else {
+                alert('Oops! There was a problem submitting your form. Please try again.');
+                if (btn) {
+                    btn.textContent = 'Send My Inquiry';
+                    btn.disabled = false;
+                }
+            }
+        }).catch(function(error) {
+            alert('Oops! There was a problem submitting your form. Please try again.');
+            if (btn) {
+                btn.textContent = 'Send My Inquiry';
+                btn.disabled = false;
+            }
+        });
+
+        return false;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var checkboxItems = document.querySelectorAll('.checkbox-item');
+        checkboxItems.forEach(function(item) {
+            item.addEventListener('click', handleCheckboxClick);
+            item.addEventListener('touchend', handleCheckboxClick);
+        });
+
+        var form = document.getElementById('contactForm');
+        if (form) {
+            form.addEventListener('submit', handleFormSubmit);
+        }
+    });
+
+    /* =============================================
+       IFRAME HEIGHT COMMUNICATION (for Showit embed)
+       ============================================= */
+    function sendHeight() {
+        var root = document.getElementById('contact-form-root');
+        root.style.height = 'auto';
+        document.body.style.height = 'auto';
+        document.documentElement.style.height = 'auto';
+        void root.offsetHeight;
+        var h = Math.max(root.scrollHeight, root.offsetHeight, document.body.scrollHeight);
+        h = Math.ceil(h);
+        window.parent.postMessage({calcHeight: h}, '*');
+    }
+    window.addEventListener('load', function() {
+        sendHeight();
+        setInterval(sendHeight, 300);
+        var observer = new MutationObserver(function() { setTimeout(sendHeight, 0); });
+        observer.observe(document.getElementById('contact-form-root'), {childList: true, subtree: true});
+    });
+</script>
+
+</body>
+</html>
