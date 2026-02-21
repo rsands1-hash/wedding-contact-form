@@ -36,18 +36,19 @@
 
     /* — OUTER WRAPPER — */
     .form-container {
-        max-width: 700px;
+        width: 100%;
+        max-width: 100%;
         margin: 0 auto;
-        padding: 40px 32px;
+        padding: 0;
     }
 
     /* — FORM CARD — */
     .right-panel {
         background: #ffffff;
-        border-radius: 24px;
-        padding: 44px 40px;
-        box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.04);
-        border: 1px solid rgba(0,0,0,.04);
+        border-radius: 0;
+        padding: 20px;
+        box-shadow: none;
+        border: none;
     }
 
     /* — FORM BODY — */
@@ -389,12 +390,12 @@
     /* RESPONSIVE */
     @media (max-width: 600px) {
         .form-container {
-            padding: 24px 16px;
+            padding: 0;
         }
 
         .right-panel {
-            padding: 32px 24px 48px;
-            border-radius: 20px;
+            padding: 16px;
+            border-radius: 0;
         }
 
         .form-body h2 {
@@ -460,7 +461,7 @@
 
     @media (max-width: 360px) {
         .right-panel {
-            padding: 28px 18px 40px;
+            padding: 12px;
         }
     }
 </style>
