@@ -282,20 +282,38 @@
     }
 
     .pricing-checkbox-row input[type="checkbox"] {
-        width: 20px;
-        height: 20px;
+        width: 26px;
+        height: 26px;
         border: 2.5px solid #e8e0ec;
-        border-radius: 6px;
+        border-radius: 50%;
         background: #fff;
         cursor: pointer;
         flex-shrink: 0;
         transition: all 0.25s ease;
         padding: 0;
+        position: relative;
+    }
+
+    .pricing-checkbox-row input[type="checkbox"]::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 16px;
+        font-weight: 700;
+        color: transparent;
+        transition: color 0.2s ease;
+        line-height: 1;
     }
 
     .pricing-checkbox-row input[type="checkbox"]:checked {
-        background: #c09acc;
+        background: #fff;
         border-color: #c09acc;
+    }
+
+    .pricing-checkbox-row input[type="checkbox"]:checked::after {
+        color: #c09acc;
     }
 
     .inline-checkbox-label {
