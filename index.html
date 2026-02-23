@@ -107,6 +107,18 @@
 
     .required { color: #d44aad; }
 
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
     input,
     select,
     textarea {
@@ -590,9 +602,9 @@
             <!-- ROW 1: Service + Full Name -->
             <div class="field-row">
                 <div class="form-group">
-                    <label for="service">Photography Service <span class="required">*</span></label>
+                    <label for="service" class="sr-only">Photography Service</label>
                     <select id="service" name="service" required="">
-                        <option value="">Please select...</option>
+                        <option value="">Photography Service *</option>
                         <option value="wedding-photography">Wedding Photography</option>
                         <option value="engagement-session">Engagement Session</option>
                         <option value="photo-booth">Photo Booth</option>
@@ -611,32 +623,32 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="fullName">Full Name <span class="required">*</span></label>
-                    <input type="text" id="fullName" name="fullName" required="">
+                    <label for="fullName" class="sr-only">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required="" placeholder="Full Name *">
                 </div>
             </div>
 
             <div class="form-group" id="otherServiceGroup" style="display:none;">
-                <label for="otherService">Please specify</label>
-                <input type="text" id="otherService" name="otherService">
+                <label for="otherService" class="sr-only">Please specify</label>
+                <input type="text" id="otherService" name="otherService" placeholder="Please specify">
             </div>
 
             <!-- ROW 2: Email + Phone -->
             <div class="field-row">
                 <div class="form-group">
-                    <label for="email">Email <span class="required">*</span></label>
-                    <input type="email" id="email" name="email" required="">
+                    <label for="email" class="sr-only">Email</label>
+                    <input type="email" id="email" name="email" required="" placeholder="Email *">
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone <span class="required">*</span></label>
-                    <input type="tel" id="phone" name="phone" required="">
+                    <label for="phone" class="sr-only">Phone</label>
+                    <input type="tel" id="phone" name="phone" required="" placeholder="Phone *">
                 </div>
             </div>
 
             <!-- ROW 3: Message (full width) -->
             <div class="form-group">
-                <label for="message">How can I be of service?</label>
-                <textarea id="message" name="message" placeholder="Tell me about your event, date, or ideas."></textarea>
+                <label for="message" class="sr-only">How can I be of service?</label>
+                <textarea id="message" name="message" placeholder="How can I be of service? Tell me about your event, date, or ideas."></textarea>
             </div>
 
             <!-- ROW 4: Checkbox + Button on same line -->
